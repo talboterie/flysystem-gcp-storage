@@ -93,7 +93,7 @@ class StorageAdapter extends AbstractAdapter
 
     public function createDir($dirname, Config $config)
     {
-        // TODO: Implement createDir() method.
+        throw new \LogicException(get_class($this) . ' create directory as needed when writing file. Path: ' . $dirname);
     }
 
     public function setVisibility($path, $visibility)
@@ -103,7 +103,7 @@ class StorageAdapter extends AbstractAdapter
 
     public function has($path)
     {
-        // TODO: Implement has() method.
+        return $this->bucket->object($this->applyPathPrefix($path))->exists();
     }
 
     public function read($path)

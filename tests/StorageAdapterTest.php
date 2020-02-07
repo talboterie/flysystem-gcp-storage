@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Talboterie\FlysystemGCPStorage\Tests;
 
+use LogicException;
 use Prophecy\Argument;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
@@ -195,5 +196,47 @@ class StorageAdapterTest extends TestCase
         $result = $this->storageAdapter->deleteDir('something');
 
         $this->assertTrue($result);
+    }
+
+    /** @test */
+    public function itCannotCreateADirectory()
+    {
+        $this->expectException(LogicException::class);
+
+        $this->storageAdapter->createDir('something', new Config());
+    }
+
+    /** @test */
+    public function itHasObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->exists()
+            ->willReturn(true);
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->has('something');
+
+        $this->assertTrue($result);
+    }
+
+    /** @test */
+    public function itHasntObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->exists()
+            ->willReturn(false);
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->has('not_found');
+
+        $this->assertFalse($result);
     }
 }
