@@ -81,7 +81,14 @@ class StorageAdapter extends AbstractAdapter
 
     public function deleteDir($dirname)
     {
-        // TODO: Implement deleteDir() method.
+        /** @var StorageObject[] $objects */
+        $objects = $this->bucket->objects(['prefix' => $dirname . '/']);
+
+        foreach ($objects as $object) {
+            $object->delete();
+        }
+
+        return true;
     }
 
     public function createDir($dirname, Config $config)

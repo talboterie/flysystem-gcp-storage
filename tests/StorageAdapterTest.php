@@ -172,4 +172,28 @@ class StorageAdapterTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    /** @test */
+    public function itCanDeleteADirectory()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->delete()
+            ->willReturn();
+        $object
+            ->name()
+            ->willReturn('prefix/something');
+
+        $this->client
+            ->object(Argument::type('string'), Argument::type('array'))
+            ->willReturn($object);
+
+        $this->client
+            ->objects(Argument::type('array'))
+            ->willReturn([$object->reveal()]);
+
+        $result = $this->storageAdapter->deleteDir('something');
+
+        $this->assertTrue($result);
+    }
 }
