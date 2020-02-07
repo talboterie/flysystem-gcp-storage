@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.1",
         "google/cloud-storage": "^1.17",
         "league/flysystem": "^1.0"
     },
