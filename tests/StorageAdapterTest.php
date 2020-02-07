@@ -304,4 +304,28 @@ class StorageAdapterTest extends TestCase
         $this->assertIsArray($result);
         $this->assertEquals('dir/something', $result[0]['path']);
     }
+
+    /** @test */
+    public function itCanFetchMetaOfAnObject()
+    {
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($this->createStorageObject('something', 'bucket', ['size' => 1024]));
+
+        $result = $this->storageAdapter->getMetadata('something');
+
+        $this->assertEquals(1024, $result['size']);
+    }
+
+    /** @test */
+    public function itCanFetchSizeOfAnObject()
+    {
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($this->createStorageObject('something', 'bucket', ['size' => 1024]));
+
+        $result = $this->storageAdapter->getSize('something');
+
+        $this->assertEquals(1024, $result['size']);
+    }
 }

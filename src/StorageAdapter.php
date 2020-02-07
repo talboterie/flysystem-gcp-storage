@@ -140,12 +140,14 @@ class StorageAdapter extends AbstractAdapter
 
     public function getMetadata($path)
     {
-        // TODO: Implement getMetadata() method.
+        return $this->bucket->object($this->applyPathPrefix($path))->info();
     }
 
     public function getSize($path)
     {
-        // TODO: Implement getSize() method.
+        $meta = $this->getMetadata($path);
+
+        return ['size' => $meta['size']];
     }
 
     public function getMimetype($path)
