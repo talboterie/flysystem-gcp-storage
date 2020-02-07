@@ -328,4 +328,16 @@ class StorageAdapterTest extends TestCase
 
         $this->assertEquals(1024, $result['size']);
     }
+
+    /** @test */
+    public function itCanFetchMimeTypeOfAnObject()
+    {
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($this->createStorageObject('something', 'bucket', ['contentType' => 'text/plain']));
+
+        $result = $this->storageAdapter->getMimetype('something');
+
+        $this->assertEquals('text/plain', $result['mimetype']);
+    }
 }

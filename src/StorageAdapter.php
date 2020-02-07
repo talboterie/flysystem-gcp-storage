@@ -152,7 +152,9 @@ class StorageAdapter extends AbstractAdapter
 
     public function getMimetype($path)
     {
-        // TODO: Implement getMimetype() method.
+        $meta = $this->getMetadata($path);
+
+        return ['mimetype' => $meta['contentType']];
     }
 
     public function getTimestamp($path)
