@@ -159,7 +159,9 @@ class StorageAdapter extends AbstractAdapter
 
     public function getTimestamp($path)
     {
-        // TODO: Implement getTimestamp() method.
+        $meta = $this->getMetadata($path);
+
+        return ['timestamp' => strtotime($meta['updated'])];
     }
 
     public function getVisibility($path)

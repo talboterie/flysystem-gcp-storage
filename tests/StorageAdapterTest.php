@@ -340,4 +340,16 @@ class StorageAdapterTest extends TestCase
 
         $this->assertEquals('text/plain', $result['mimetype']);
     }
+
+    /** @test */
+    public function itCanFetchTimestampOfAnObject()
+    {
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($this->createStorageObject('something', 'bucket', ['updated' => '2020-02-06 23:28:32']));
+
+        $result = $this->storageAdapter->getTimestamp('something');
+
+        $this->assertEquals(strtotime('2020-02-06 23:28:32'), $result['timestamp']);
+    }
 }
