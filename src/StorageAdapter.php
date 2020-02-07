@@ -122,7 +122,20 @@ class StorageAdapter extends AbstractAdapter
 
     public function listContents($directory = '', $recursive = false)
     {
-        // TODO: Implement listContents() method.
+        $options = [];
+        if (!empty($directory)) {
+            $options['prefix'] = $directory . '/';
+        }
+
+        /** @var StorageObject[] $objects */
+        $objects = $this->bucket->objects($options);
+
+        $items = [];
+        foreach ($objects as $object) {
+            $items[] = ['path' => $object->name()];
+        }
+
+        return $items;
     }
 
     public function getMetadata($path)

@@ -274,4 +274,21 @@ class StorageAdapterTest extends TestCase
 
         $this->assertInstanceOf(StreamInterface::class, $result['stream']);
     }
+
+    /** @test */
+    public function itCanListObjectsOfABucket()
+    {
+        $this->client
+            ->objects(Argument::type('array'))
+            ->willReturn([
+                $this->createStorageObject('something'),
+                $this->createStorageObject('newthing'),
+            ]);
+
+        $result = $this->storageAdapter->listContents();
+
+        $this->assertIsArray($result);
+        $this->assertEquals('something', $result[0]['path']);
+        $this->assertEquals('newthing', $result[1]['path']);
+    }
 }
