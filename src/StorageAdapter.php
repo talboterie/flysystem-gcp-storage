@@ -115,7 +115,9 @@ class StorageAdapter extends AbstractAdapter
 
     public function readStream($path)
     {
-        // TODO: Implement readStream() method.
+        $stream = $this->bucket->object($this->applyPathPrefix($path))->downloadAsStream();
+
+        return compact('stream');
     }
 
     public function listContents($directory = '', $recursive = false)

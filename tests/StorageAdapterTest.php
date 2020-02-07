@@ -10,6 +10,7 @@ use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
 use Google\Cloud\Storage\Bucket;
 use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Http\Message\StreamInterface;
 use Google\Cloud\Storage\StorageObject;
 use Talboterie\FlysystemGCPStorage\StorageAdapter;
 use Google\Cloud\Core\Exception\NotFoundException;
@@ -255,5 +256,22 @@ class StorageAdapterTest extends TestCase
         $result = $this->storageAdapter->read('something');
 
         $this->assertEquals('contents', $result['contents']);
+    }
+
+    /** @test */
+    public function itCanReadAStream()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->downloadAsStream()
+            ->willReturn($this->prophesize(StreamInterface::class)->reveal());
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->readStream('something');
+
+        $this->assertInstanceOf(StreamInterface::class, $result['stream']);
     }
 }
