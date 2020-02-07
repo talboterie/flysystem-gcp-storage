@@ -239,4 +239,21 @@ class StorageAdapterTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    /** @test */
+    public function itCanReadAnObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->downloadAsString()
+            ->willReturn('contents');
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->read('something');
+
+        $this->assertEquals('contents', $result['contents']);
+    }
 }
