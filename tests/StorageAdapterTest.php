@@ -14,6 +14,7 @@ use Psr\Http\Message\StreamInterface;
 use Google\Cloud\Storage\StorageObject;
 use Talboterie\FlysystemGCPStorage\StorageAdapter;
 use Google\Cloud\Core\Exception\NotFoundException;
+use Talboterie\FlysystemGCPStorage\StorageVisibility;
 use Google\Cloud\Storage\Connection\ConnectionInterface;
 
 class StorageAdapterTest extends TestCase
@@ -351,5 +352,22 @@ class StorageAdapterTest extends TestCase
         $result = $this->storageAdapter->getTimestamp('something');
 
         $this->assertEquals(strtotime('2020-02-06 23:28:32'), $result['timestamp']);
+    }
+
+    /** @test */
+    public function itCanSetVisibilityOfAnObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->update(Argument::type('array'), Argument::type('array'))
+            ->willReturn();
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object);
+
+        $result = $this->storageAdapter->setVisibility('something', StorageVisibility::PUBLIC_READ);
+
+        $this->assertEquals(StorageVisibility::PUBLIC_READ, $result['visibility']);
     }
 }
