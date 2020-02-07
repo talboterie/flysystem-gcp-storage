@@ -10,7 +10,6 @@ jobs:
         strategy:
             matrix:
                 php: [7.1, 7.2, 7.3, 7.4]
-                dependency-version: [prefer-lowest, prefer-stable]
                 os: [ubuntu-latest]
 
         name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
@@ -32,7 +31,7 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer install --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress --no-suggest
+              run: composer install --prefer-dist --no-interaction --no-progress --no-suggest
 
             - name: Run test suite
               run: composer run-script test
