@@ -11,6 +11,7 @@ use Google\Cloud\Storage\Bucket;
 use Prophecy\Prophecy\ObjectProphecy;
 use Google\Cloud\Storage\StorageObject;
 use Talboterie\FlysystemGCPStorage\StorageAdapter;
+use Google\Cloud\Core\Exception\NotFoundException;
 use Google\Cloud\Storage\Connection\ConnectionInterface;
 
 class StorageAdapterTest extends TestCase
@@ -153,5 +154,22 @@ class StorageAdapterTest extends TestCase
         $result = $this->storageAdapter->delete('something');
 
         $this->assertTrue($result);
+    }
+
+    /** @test */
+    public function itCannotDeleteAnNonExistentObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->delete()
+            ->willThrow(NotFoundException::class);
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->delete('not_found');
+
+        $this->assertFalse($result);
     }
 }
