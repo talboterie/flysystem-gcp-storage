@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/{vendor:kebab}/{package_name:kebab}).
+We accept contributions via Pull Requests on [Github](https://github.com/talboterie/fly-sy-stem-gc-pstorage).
 
 
 ## Pull Requests

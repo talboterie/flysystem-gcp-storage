@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace {vendor:no-space}\{package_name:no-space};
+namespace Talboterie\FlysystemGCPStorage;
 
 class Skeleton
 {

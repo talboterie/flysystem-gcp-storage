@@ -1,25 +1,24 @@
 {
-    "name": "{vendor:kebab}/{package_name:kebab}",
+    "name": "talboterie/flysystem-gcp-storage",
     "type": "library",
-    "description": "{package_description}",
+    "description": "Flysystem adapter for Google Cloud Storage",
     "keywords": [
         "laravel",
-        "{vendor}",
-        "{package_name}"
+        "Talboterie",
+        "Flysystem GCP Storage"
     ],
-    "homepage": "https://talboterie.dev/packages/{package_name:kebab}",
+    "homepage": "https://talboterie.dev/packages/flysystem-gcp-storage",
     "license": "MIT",
     "authors": [
         {
-            "name": "{author_name}",
-            "email": "{author_email}",
-            "homepage": "{author_website}",
+            "name": "Vincent Talbot",
+            "email": "vincent@talbot.ninja",
+            "homepage": "https://vincenttalbot.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=7.2",
-        "illuminate/support": "~6.0"
+        "php": ">=7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~8.0",
@@ -27,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "{vendor:no-space}\\{package_name:no-space}\\": "src"
+            "Talboterie\\FlysystemGCPStorage\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "{vendor:no-space}\\{package_name:no-space}\\Tests\\": "tests"
+            "Talboterie\\FlysystemGCPStorage\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -43,11 +42,6 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
-        },
-        "laravel": {
-            "providers": [
-                "{vendor:no-space}\\{package_name:no-space}\\{package_name:no-space}ServiceProvider"
-            ]
         }
     },
     "config": {

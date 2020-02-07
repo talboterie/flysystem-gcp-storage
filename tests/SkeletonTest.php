@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace {vendor:no-space}\{package_name:no-space}\Tests;
+namespace Talboterie\FlysystemGCPStorage\Tests;
 
 use PHPUnit\Framework\TestCase;
-use {vendor:no-space}\{package_name:no-space}\Skeleton;
+use Talboterie\FlysystemGCPStorage\Skeleton;
 
 class SkeletonTest extends TestCase
 {
@@ -13,7 +13,7 @@ class SkeletonTest extends TestCase
     public function itReturnAPhrase(): void
     {
         $skeleton = new Skeleton;
-        $string = 'Hello {vendor}';
+        $string = 'Hello Talboterie';
 
         $this->assertEquals($string, $skeleton->echoPhrase($string));
     }

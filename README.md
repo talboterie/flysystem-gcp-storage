@@ -1,4 +1,4 @@
-# {package_name}
+# Flysystem GCP Storage
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -30,14 +30,14 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require {vendor:kebab}/{package_name:kebab}
+$ composer require talboterie/fly-sy-stem-gc-pstorage
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new {vendor:no-space}\{package_name:no-space}\Skeleton();
-echo $skeleton->echoPhrase('Hello, {vendor}!');
+$skeleton = new Talboterie\FlysystemGCPStorage\Skeleton();
+echo $skeleton->echoPhrase('Hello, Talboterie!');
 ```
 
 ## Change log
@@ -56,28 +56,28 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 ## Security
 
-If you discover any security related issues, please email `{author_email}` instead of using the issue tracker.
+If you discover any security related issues, please email `vincent@talbot.ninja` instead of using the issue tracker.
 
 ## Credits
 
-- [{author_name}][link-author]
+- [Vincent Talbot][link-author]
 - [All Contributors][link-contributors]
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/{vendor:kebab}/{package_name:kebab}.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/{vendor:kebab}/{package_name:kebab}/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/{vendor:kebab}/{package_name:kebab}.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/{vendor:kebab}/{package_name:kebab}.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/{vendor:kebab}/{package_name:kebab}.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/talboterie/fly-sy-stem-gc-pstorage/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/{vendor:kebab}/{package_name:kebab}
-[link-travis]: https://travis-ci.org/{vendor:kebab}/{package_name:kebab}
-[link-scrutinizer]: https://scrutinizer-ci.com/g/{vendor:kebab}/{package_name:kebab}/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/{vendor:kebab}/{package_name:kebab}
-[link-downloads]: https://packagist.org/packages/{vendor:kebab}/{package_name:kebab}
-[link-author]: https://github.com/{author_username}
+[link-packagist]: https://packagist.org/packages/talboterie/fly-sy-stem-gc-pstorage
+[link-travis]: https://travis-ci.org/talboterie/fly-sy-stem-gc-pstorage
+[link-scrutinizer]: https://scrutinizer-ci.com/g/talboterie/fly-sy-stem-gc-pstorage/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/talboterie/fly-sy-stem-gc-pstorage
+[link-downloads]: https://packagist.org/packages/talboterie/fly-sy-stem-gc-pstorage
+[link-author]: https://github.com/vtalbot
 [link-contributors]: ../../contributors
