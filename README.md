@@ -30,7 +30,7 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require talboterie/fly-sy-stem-gc-pstorage
+$ composer require talboterie/flysystem-gcp-storage
 ```
 
 ## Usage
@@ -67,17 +67,17 @@ If you discover any security related issues, please email `vincent@talbot.ninja`
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/talboterie/flysystem-gcp-storage.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-github]: https://img.shields.io/github/workflow/status/talboterie/flysystem-gcp-storage/run-tests?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/talboterie/fly-sy-stem-gc-pstorage.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/talboterie/flysystem-gcp-storage.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/talboterie/flysystem-gcp-storage.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/talboterie/flysystem-gcp-storage.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/talboterie/fly-sy-stem-gc-pstorage
-[link-github]: https://github.com/talboterie/fly-sy-stem-gc-pstorage/actions
-[link-scrutinizer]: https://scrutinizer-ci.com/g/talboterie/fly-sy-stem-gc-pstorage/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/talboterie/fly-sy-stem-gc-pstorage
-[link-downloads]: https://packagist.org/packages/talboterie/fly-sy-stem-gc-pstorage
+[link-packagist]: https://packagist.org/packages/talboterie/flysystem-gcp-storage
+[link-github]: https://github.com/talboterie/flysystem-gcp-storage/actions
+[link-scrutinizer]: https://scrutinizer-ci.com/g/talboterie/flysystem-gcp-storage/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/talboterie/flysystem-gcp-storage
+[link-downloads]: https://packagist.org/packages/talboterie/flysystem-gcp-storage
 [link-author]: https://github.com/vtalbot
 [link-contributors]: ../../contributors
