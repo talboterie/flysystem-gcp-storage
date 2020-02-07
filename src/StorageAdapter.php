@@ -27,7 +27,7 @@ class StorageAdapter extends AbstractAdapter
         return $this->move($path, $newPath, false);
     }
 
-    public function createDir($dirname, Config $config)
+    public function createDir($dirname, Config $config): void 
     {
         throw new LogicException(get_class($this) . ' create directory as needed when writing file. Path: ' . $dirname);
     }
@@ -43,7 +43,7 @@ class StorageAdapter extends AbstractAdapter
         }
     }
 
-    public function deleteDir($dirname)
+    public function deleteDir($dirname): bool
     {
         /** @var StorageObject[] $objects */
         $objects = $this->bucket->objects(['prefix' => $dirname . '/']);
@@ -55,45 +55,45 @@ class StorageAdapter extends AbstractAdapter
         return true;
     }
 
-    public function getMetadata($path)
+    public function getMetadata($path): array
     {
         return $this->bucket->object($this->applyPathPrefix($path))->info();
     }
 
-    public function getMimetype($path)
+    public function getMimetype($path): array
     {
         $meta = $this->getMetadata($path);
 
         return ['mimetype' => $meta['contentType']];
     }
 
-    public function getSize($path)
+    public function getSize($path): array
     {
         $meta = $this->getMetadata($path);
 
         return ['size' => $meta['size']];
     }
 
-    public function getTimestamp($path)
+    public function getTimestamp($path): array
     {
         $meta = $this->getMetadata($path);
 
         return ['timestamp' => strtotime($meta['updated'])];
     }
 
-    public function getVisibility($path)
+    public function getVisibility($path): array
     {
         $visibility = $this->bucket->object($this->applyPathPrefix($path))->acl()->get();
 
         return compact('path', 'visibility');
     }
 
-    public function has($path)
+    public function has($path): bool
     {
         return $this->bucket->object($this->applyPathPrefix($path))->exists();
     }
 
-    public function listContents($directory = '', $recursive = false)
+    public function listContents($directory = '', $recursive = false): array
     {
         $options = [];
         if (!empty($directory)) {
@@ -111,14 +111,14 @@ class StorageAdapter extends AbstractAdapter
         return $items;
     }
 
-    public function read($path)
+    public function read($path): array
     {
         $contents = $this->bucket->object($this->applyPathPrefix($path))->downloadAsString();
 
         return compact('contents');
     }
 
-    public function readStream($path)
+    public function readStream($path): array
     {
         $stream = $this->bucket->object($this->applyPathPrefix($path))->downloadAsStream();
 
@@ -130,7 +130,7 @@ class StorageAdapter extends AbstractAdapter
         return $this->move($path, $newPath);
     }
 
-    public function setVisibility($path, $visibility)
+    public function setVisibility($path, $visibility): array
     {
         $object = $this->bucket->object($this->applyPathPrefix($path));
         $object->update(['acl' => []], ['predefinedAcl' => $visibility]);
