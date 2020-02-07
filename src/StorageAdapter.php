@@ -27,7 +27,7 @@ class StorageAdapter extends AbstractAdapter
         return $this->move($path, $newPath, false);
     }
 
-    public function createDir($dirname, Config $config): void 
+    public function createDir($dirname, Config $config): void
     {
         throw new LogicException(get_class($this) . ' create directory as needed when writing file. Path: ' . $dirname);
     }

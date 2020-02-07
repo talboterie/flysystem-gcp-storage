@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Talboterie\FlysystemGCPStorage\Tests;
 
-use LogicException;
-use Prophecy\Argument;
-use League\Flysystem\Config;
+use Google\Cloud\Core\Exception\NotFoundException;
 use Google\Cloud\Storage\Acl;
-use PHPUnit\Framework\TestCase;
 use Google\Cloud\Storage\Bucket;
+use Google\Cloud\Storage\Connection\ConnectionInterface;
+use Google\Cloud\Storage\StorageObject;
+use League\Flysystem\Config;
+use LogicException;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\StreamInterface;
-use Google\Cloud\Storage\StorageObject;
 use Talboterie\FlysystemGCPStorage\StorageAdapter;
-use Google\Cloud\Core\Exception\NotFoundException;
 use Talboterie\FlysystemGCPStorage\StorageVisibility;
-use Google\Cloud\Storage\Connection\ConnectionInterface;
 
 class StorageAdapterTest extends TestCase
 {
@@ -38,11 +38,6 @@ class StorageAdapterTest extends TestCase
         $this->storageAdapter = new StorageAdapter($this->client->reveal(), 'prefix');
     }
 
-    private function createStorageObject(string $name, string $bucket = 'bucket', array $meta = []): StorageObject
-    {
-        return new StorageObject($this->connection->reveal(), $name, $bucket, null, $meta);
-    }
-
     /** @test */
     public function itCanWriteAnObject(): void
     {
@@ -57,7 +52,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanWriteAStream()
+    public function itCanWriteAStream(): void
     {
         $this->client
             ->upload(Argument::any(), Argument::type('array'))
@@ -70,7 +65,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanUpdateAnObject()
+    public function itCanUpdateAnObject(): void
     {
         $this->client
             ->upload(Argument::any(), Argument::type('array'))
@@ -83,7 +78,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanUpdateAStream()
+    public function itCanUpdateAStream(): void
     {
         $this->client
             ->upload(Argument::any(), Argument::type('array'))
@@ -96,7 +91,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanRenameAnObject()
+    public function itCanRenameAnObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -122,7 +117,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanCopyAnObject()
+    public function itCanCopyAnObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -144,7 +139,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanDeleteAnObject()
+    public function itCanDeleteAnObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -161,7 +156,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCannotDeleteAnNonExistentObject()
+    public function itCannotDeleteAnNonExistentObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -178,7 +173,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanDeleteADirectory()
+    public function itCanDeleteADirectory(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -202,7 +197,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCannotCreateADirectory()
+    public function itCannotCreateADirectory(): void
     {
         $this->expectException(LogicException::class);
 
@@ -210,7 +205,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itHasObject()
+    public function itHasObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -227,7 +222,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itHasntObject()
+    public function itHasntObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -244,7 +239,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanReadAnObject()
+    public function itCanReadAnObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -261,7 +256,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanReadAStream()
+    public function itCanReadAStream(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -278,7 +273,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanListObjectsOfABucket()
+    public function itCanListObjectsOfABucket(): void
     {
         $this->client
             ->objects(Argument::type('array'))
@@ -295,7 +290,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanListSubObjectsOfABucket()
+    public function itCanListSubObjectsOfABucket(): void
     {
         $this->client
             ->objects(Argument::type('array'))
@@ -308,7 +303,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanFetchMetaOfAnObject()
+    public function itCanFetchMetaOfAnObject(): void
     {
         $this->client
             ->object(Argument::type('string'))
@@ -320,7 +315,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanFetchSizeOfAnObject()
+    public function itCanFetchSizeOfAnObject(): void
     {
         $this->client
             ->object(Argument::type('string'))
@@ -332,7 +327,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanFetchMimeTypeOfAnObject()
+    public function itCanFetchMimeTypeOfAnObject(): void
     {
         $this->client
             ->object(Argument::type('string'))
@@ -344,7 +339,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanFetchTimestampOfAnObject()
+    public function itCanFetchTimestampOfAnObject(): void
     {
         $this->client
             ->object(Argument::type('string'))
@@ -356,7 +351,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanSetVisibilityOfAnObject()
+    public function itCanSetVisibilityOfAnObject(): void
     {
         $object = $this->prophesize(StorageObject::class);
         $object
@@ -373,7 +368,7 @@ class StorageAdapterTest extends TestCase
     }
 
     /** @test */
-    public function itCanGetVisibilityOfAnObject()
+    public function itCanGetVisibilityOfAnObject(): void
     {
         $acl = $this->prophesize(Acl::class);
         $acl->get()
@@ -392,5 +387,10 @@ class StorageAdapterTest extends TestCase
 
         $this->assertEquals('allUsers', $result['visibility'][0]['entity']);
         $this->assertEquals('READER', $result['visibility'][0]['role']);
+    }
+
+    private function createStorageObject(string $name, string $bucket = 'bucket', array $meta = []): StorageObject
+    {
+        return new StorageObject($this->connection->reveal(), $name, $bucket, null, $meta);
     }
 }
