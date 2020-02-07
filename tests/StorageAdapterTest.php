@@ -76,4 +76,17 @@ class StorageAdapterTest extends TestCase
         $this->assertEquals(StorageObject::class, get_class($result));
         $this->assertEquals('something', $result->name());
     }
+
+    /** @test */
+    public function itCanUpdateAStream()
+    {
+        $this->client
+            ->upload(Argument::any(), Argument::type('array'))
+            ->willReturn($this->createStorageObject('something'));
+
+        $result = $this->storageAdapter->updateStream('something', tmpfile(), new Config());
+
+        $this->assertEquals(StorageObject::class, get_class($result));
+        $this->assertEquals('something', $result->name());
+    }
 }
