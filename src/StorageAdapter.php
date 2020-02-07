@@ -169,6 +169,8 @@ class StorageAdapter extends AbstractAdapter
 
     public function getVisibility($path)
     {
-        // TODO: Implement getVisibility() method.
+        $visibility = $this->bucket->object($this->applyPathPrefix($path))->acl()->get();
+
+        return compact('path', 'visibility');
     }
 }

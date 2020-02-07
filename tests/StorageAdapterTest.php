@@ -7,6 +7,7 @@ namespace Talboterie\FlysystemGCPStorage\Tests;
 use LogicException;
 use Prophecy\Argument;
 use League\Flysystem\Config;
+use Google\Cloud\Storage\Acl;
 use PHPUnit\Framework\TestCase;
 use Google\Cloud\Storage\Bucket;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -369,5 +370,27 @@ class StorageAdapterTest extends TestCase
         $result = $this->storageAdapter->setVisibility('something', StorageVisibility::PUBLIC_READ);
 
         $this->assertEquals(StorageVisibility::PUBLIC_READ, $result['visibility']);
+    }
+
+    /** @test */
+    public function itCanGetVisibilityOfAnObject()
+    {
+        $acl = $this->prophesize(Acl::class);
+        $acl->get()
+            ->willReturn([['entity' => 'allUsers', 'role' => 'READER']]);
+
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->acl()
+            ->willReturn($acl);
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object);
+
+        $result = $this->storageAdapter->getVisibility('something');
+
+        $this->assertEquals('allUsers', $result['visibility'][0]['entity']);
+        $this->assertEquals('READER', $result['visibility'][0]['role']);
     }
 }
