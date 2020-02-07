@@ -137,4 +137,21 @@ class StorageAdapterTest extends TestCase
         $this->assertEquals(StorageObject::class, get_class($result));
         $this->assertEquals('newthing', $result->name());
     }
+
+    /** @test */
+    public function itCanDeleteAnObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->delete()
+            ->willReturn();
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->delete('something');
+
+        $this->assertTrue($result);
+    }
 }

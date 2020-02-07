@@ -8,6 +8,7 @@ use League\Flysystem\Config;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageObject;
 use League\Flysystem\Adapter\AbstractAdapter;
+use Google\Cloud\Core\Exception\NotFoundException;
 
 class StorageAdapter extends AbstractAdapter
 {
@@ -62,14 +63,20 @@ class StorageAdapter extends AbstractAdapter
         return $this->move($path, $newPath);
     }
 
-    public function copy($path, $newPath)
+    public function copy($path, $newPath): StorageObject
     {
         return $this->move($path, $newPath, false);
     }
 
-    public function delete($path)
+    public function delete($path): bool
     {
-        // TODO: Implement delete() method.
+        try {
+            $this->bucket->object($this->applyPathPrefix($path))->delete();
+
+            return true;
+        } catch (NotFoundException $exception) {
+            return false;
+        }
     }
 
     public function deleteDir($dirname)
