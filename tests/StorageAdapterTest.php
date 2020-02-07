@@ -291,4 +291,17 @@ class StorageAdapterTest extends TestCase
         $this->assertEquals('something', $result[0]['path']);
         $this->assertEquals('newthing', $result[1]['path']);
     }
+
+    /** @test */
+    public function itCanListSubObjectsOfABucket()
+    {
+        $this->client
+            ->objects(Argument::type('array'))
+            ->willReturn([$this->createStorageObject('dir/something')]);
+
+        $result = $this->storageAdapter->listContents('dir');
+
+        $this->assertIsArray($result);
+        $this->assertEquals('dir/something', $result[0]['path']);
+    }
 }
