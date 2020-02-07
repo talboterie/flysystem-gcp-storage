@@ -25,6 +25,18 @@ class StorageAdapter extends AbstractAdapter
         return $this->bucket->upload($content, ['name' => $this->applyPathPrefix($path)]);
     }
 
+    protected function move(string $path, string $newPath, bool $delete = true): StorageObject
+    {
+        $object = $this->bucket->object($this->applyPathPrefix($path));
+        $newObject = $object->copy($this->bucket->name(), ['name' => $this->applyPathPrefix($newPath)]);
+
+        if ($delete) {
+            $object->delete();
+        }
+
+        return $newObject;
+    }
+
     public function write($path, $contents, Config $config): StorageObject
     {
         return $this->upload($path, $contents, $config);
@@ -45,9 +57,9 @@ class StorageAdapter extends AbstractAdapter
         return $this->upload($path, $resource, $config);
     }
 
-    public function rename($path, $newpath)
+    public function rename($path, $newPath): StorageObject
     {
-        // TODO: Implement rename() method.
+        return $this->move($path, $newPath);
     }
 
     public function copy($path, $newpath)
