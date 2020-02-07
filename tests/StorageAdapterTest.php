@@ -47,7 +47,7 @@ class StorageAdapterTest extends TestCase
 
         $result = $this->storageAdapter->write('something', 'contents', new Config());
 
-        $this->assertEquals(get_class($result), StorageObject::class);
+        $this->assertEquals(StorageObject::class, get_class($result));
         $this->assertEquals('something', $result->name());
     }
 
@@ -60,7 +60,20 @@ class StorageAdapterTest extends TestCase
 
         $result = $this->storageAdapter->writeStream('something', tmpfile(), new Config());
 
-        $this->assertEquals(get_class($result), StorageObject::class);
+        $this->assertEquals(StorageObject::class, get_class($result));
+        $this->assertEquals('something', $result->name());
+    }
+
+    /** @test */
+    public function itCanUpdateAnObject()
+    {
+        $this->client
+            ->upload(Argument::any(), Argument::type('array'))
+            ->willReturn($this->createStorageObject('something'));
+
+        $result = $this->storageAdapter->update('something', 'contents', new Config());
+
+        $this->assertEquals(StorageObject::class, get_class($result));
         $this->assertEquals('something', $result->name());
     }
 }

@@ -35,9 +35,9 @@ class StorageAdapter extends AbstractAdapter
         return $this->upload($path, $resource, $config);
     }
 
-    public function update($path, $contents, Config $config)
+    public function update($path, $contents, Config $config): StorageObject
     {
-        // TODO: Implement update() method.
+        return $this->upload($path, $contents, $config);
     }
 
     public function updateStream($path, $resource, Config $config)
