@@ -45,7 +45,20 @@ class StorageAdapterTest extends TestCase
             ->upload(Argument::any(), Argument::type('array'))
             ->willReturn($this->createStorageObject('something'));
 
-        $result = $this->storageAdapter->write('something', 'content', new Config());
+        $result = $this->storageAdapter->write('something', 'contents', new Config());
+
+        $this->assertEquals(get_class($result), StorageObject::class);
+        $this->assertEquals('something', $result->name());
+    }
+
+    /** @test */
+    public function itCanWriteAStream()
+    {
+        $this->client
+            ->upload(Argument::any(), Argument::type('array'))
+            ->willReturn($this->createStorageObject('something'));
+
+        $result = $this->storageAdapter->writeStream('something', tmpfile(), new Config());
 
         $this->assertEquals(get_class($result), StorageObject::class);
         $this->assertEquals('something', $result->name());

@@ -25,14 +25,14 @@ class StorageAdapter extends AbstractAdapter
         return $this->bucket->upload($content, ['name' => $this->applyPathPrefix($path)]);
     }
 
-    public function write($path, $content, Config $config)
+    public function write($path, $contents, Config $config): StorageObject
     {
-        return $this->upload($path, $content, $config);
+        return $this->upload($path, $contents, $config);
     }
 
-    public function writeStream($path, $resource, Config $config)
+    public function writeStream($path, $resource, Config $config): StorageObject
     {
-        // TODO: Implement writeStream() method.
+        return $this->upload($path, $resource, $config);
     }
 
     public function update($path, $contents, Config $config)
