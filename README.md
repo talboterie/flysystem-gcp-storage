@@ -7,23 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practices by being named the following.
-
-```
-bin/        
-build/
-docs/
-config/
-src/
-tests/
-vendor/
-```
-
+Flysystem adapter for Google Cloud Storage.
 
 ## Install
 
@@ -36,8 +20,18 @@ $ composer require talboterie/flysystem-gcp-storage
 ## Usage
 
 ``` php
-$skeleton = new Talboterie\FlysystemGCPStorage\Skeleton();
-echo $skeleton->echoPhrase('Hello, Talboterie!');
+use League\Flysystem\Filesystem;
+use Google\Cloud\Storage\StorageClient;
+use Talboterie\FlysystemGCPStorage\StorageAdapter;
+
+$client = new StorageClient([
+    'projectId' => 'your-gcp-project-id',
+    'keyFilePath' => '/path/to/credentials.json',
+]);
+
+$adapter = new StorageAdapter($client->bucket('your-bucket'));
+
+$filesystem = new Filesystem($adapter);
 ```
 
 ## Change log
