@@ -62,9 +62,9 @@ class StorageAdapter extends AbstractAdapter
         return $this->move($path, $newPath);
     }
 
-    public function copy($path, $newpath)
+    public function copy($path, $newPath)
     {
-        // TODO: Implement copy() method.
+        return $this->move($path, $newPath, false);
     }
 
     public function delete($path)

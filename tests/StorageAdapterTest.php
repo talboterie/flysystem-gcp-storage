@@ -115,4 +115,26 @@ class StorageAdapterTest extends TestCase
         $this->assertEquals(StorageObject::class, get_class($result));
         $this->assertEquals('newthing', $result->name());
     }
+
+    /** @test */
+    public function itCanCopyAnObject()
+    {
+        $object = $this->prophesize(StorageObject::class);
+        $object
+            ->copy(Argument::type('string'), Argument::type('array'))
+            ->willReturn($this->createStorageObject('newthing'));
+
+        $this->client
+            ->name()
+            ->willReturn('bucket');
+
+        $this->client
+            ->object(Argument::type('string'))
+            ->willReturn($object->reveal());
+
+        $result = $this->storageAdapter->copy('something', 'newthing');
+
+        $this->assertEquals(StorageObject::class, get_class($result));
+        $this->assertEquals('newthing', $result->name());
+    }
 }
