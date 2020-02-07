@@ -21,17 +21,23 @@ jobs:
             - name: Cache dependencies
               uses: actions/cache@v1
               with:
-                  path: ~/.composer/cache/files
+                  path: ~/.composer/cache
                   key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v1
               with:
                   php-version: ${{ matrix.php }}
-                  coverage: none
+                  extensions: xml
+                  coverage: pcov
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-interaction --no-progress --no-suggest
 
             - name: Run test suite
-              run: composer run-script test
+              run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+            - name: Send code coverage report
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+              run: bash <(curl -s https://codecov.io/bash) || true
